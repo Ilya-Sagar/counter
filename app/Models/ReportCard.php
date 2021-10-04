@@ -9,6 +9,8 @@ class ReportCard extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function visitors()
     {
         return $this->hasMany(ReportCardVtisitor::class);
