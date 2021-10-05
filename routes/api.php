@@ -25,3 +25,6 @@ Route::put('reports/{id}', [\App\Http\Controllers\ReportCardController::class, '
 Route::get('visitors', [\App\Http\Controllers\VisitorController::class, 'search']);
 Route::post('visitors', [\App\Http\Controllers\VisitorController::class, 'create']);
 Route::put('visitors/{id}', [\App\Http\Controllers\VisitorController::class, 'update'])->where('id', '[0-9]+');
+
+Route::post('attends', [\App\Http\Controllers\DayAttendController::class, 'create']);
+Route::put('attends/{id}', [\App\Http\Controllers\DayAttendController::class, 'update'])->where('id', '[0-9]+');
