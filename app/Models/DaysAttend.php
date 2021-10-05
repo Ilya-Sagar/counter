@@ -9,6 +9,8 @@ class DaysAttend extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function attendType()
     {
         return $this->belongsTo(AttendType::class);
