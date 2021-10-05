@@ -21,3 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/', [\App\Http\Controllers\ReportCardController::class, 'index']);
 Route::post('reports', [\App\Http\Controllers\ReportCardController::class, 'create']);
 Route::put('reports/{id}', [\App\Http\Controllers\ReportCardController::class, 'update'])->where('id', '[0-9]+');
+
+Route::get('visitors', [\App\Http\Controllers\VisitorController::class, 'search']);
+Route::post('visitors', [\App\Http\Controllers\VisitorController::class, 'create']);
+Route::put('visitors/{id}', [\App\Http\Controllers\VisitorController::class, 'update'])->where('id', '[0-9]+');
