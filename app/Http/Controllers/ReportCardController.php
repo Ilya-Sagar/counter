@@ -15,7 +15,19 @@ class ReportCardController extends Controller
 
         $reports = ReportCard::where('owner_id', $user->id)->get();
 
-        return $reports;
+        return view('main.reportsList', ['reports' => $reports]);
+    }
+
+    public function showReport(int $id)
+    {
+        $report = ReportCard::find($id);
+
+        return view('main.report.report', ['report' => $report]);
+    }
+
+    public function createForm()
+    {
+        return view('main.createReport');
     }
 
     public function create(Request $request)
