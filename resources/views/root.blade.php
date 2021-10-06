@@ -12,7 +12,7 @@
 <main>
 
     @yield('go-back')
-    <div class="p-5 border border-dark d-flex flex-column">
+    <div class="p-5 d-flex flex-column">
         @yield('main')
     </div>
 </main>
