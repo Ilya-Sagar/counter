@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\AttendType;
-use App\Models\ReportCard;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,8 +16,8 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         $this->call([
-            AttendType::class,
-            ReportCard::class,
+            AttendTypesSeeder::class,
+            ReportCardSeeder::class,
             UserSeeder::class,
         ]);
     }
