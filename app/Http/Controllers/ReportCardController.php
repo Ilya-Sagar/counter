@@ -33,7 +33,7 @@ class ReportCardController extends Controller
     public function create(Request $request)
     {
         $rules = [
-            'month' => 'required|string|min:3|max:10',
+            'month_ru' => 'required|string|min:3|max:10',
             'year' => 'required|int|digits:4',
         ];
 
@@ -47,12 +47,36 @@ class ReportCardController extends Controller
             ];
         }
 
+        // translate name from Ru to Eng
+
+        $month = mb_strtolower($request->month_ru);
+
+        $ru_eng = [
+            'январь' => 'January',
+            'февраль' => 'February',
+            'март' => 'March',
+            'апрель' => 'April',
+            'май' => 'May',
+            'июнь' => 'June',
+            'июль' => 'July',
+            'август' => 'August',
+            'сентябрь' => 'September',
+            'октябрь' => 'October',
+            'ноябрь' => 'November',
+            'декабрь' => 'December'
+        ];
+
+        $month_eng = $ru_eng[$month];
+
         $user = User::first();
 
         $created = ReportCard::create(
             array_merge(
                 $request->all(),
-                ['owner_id' => $user->id]
+                [
+                    'owner_id' => $user->id,
+                    'month_eng' => $month_eng
+                ]
             )
         );
 
@@ -61,9 +85,8 @@ class ReportCardController extends Controller
 
     public function update(Request $request, int $id)
     {
-
         $rules = [
-            'month' => 'required|string|min:3|max:10',
+            'month_ru' => 'required|string|min:3|max:10',
             'year' => 'required|int|digits:4',
         ];
 
@@ -77,7 +100,33 @@ class ReportCardController extends Controller
             ];
         }
 
-        $update = ReportCard::where('id', $id)->update($request->all());
+        // translate name from Ru to Eng
+
+        $month = mb_strtolower($request->month_ru);
+
+        $ru_eng = [
+            'январь' => 'January',
+            'февраль' => 'February',
+            'март' => 'March',
+            'апрель' => 'April',
+            'май' => 'May',
+            'июнь' => 'June',
+            'июль' => 'July',
+            'август' => 'August',
+            'сентябрь' => 'September',
+            'октябрь' => 'October',
+            'ноябрь' => 'November',
+            'декабрь' => 'December'
+        ];
+
+        $month_eng = $ru_eng[$month];
+
+        $update = ReportCard::where('id', $id)->update(array_merge(
+            $request->all(),
+            [
+                'month_eng' => $month_eng
+            ]
+        ));
 
         return $update;
     }
