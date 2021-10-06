@@ -1,7 +1,7 @@
 @extends('main.report.manageData.inner')
 
 @section('main')
-    <h3>{{ $report->month }}, {{ $report->year }}</h3>
+    <h3>{{ $report->month_ru }}, {{ $report->year }}</h3>
 
     <form action="{{ route('attends.createOrUpdate') }}" method="post" class="mt-3">
         @csrf

@@ -38,7 +38,7 @@ class DayAttendController extends Controller
         $reportCard = ReportCard::find($request->reportCard_id);
 
         $dataInsert = $request->all();
-        $dataInsert['day'] = strtotime($request->day . ' ' . $reportCard->month . ' ' . $reportCard->year);
+        $dataInsert['day'] = strtotime($request->day . ' ' . $reportCard->month_eng . ' ' . $reportCard->year);
 
         $create = DaysAttend::create($dataInsert);
 
@@ -67,7 +67,7 @@ class DayAttendController extends Controller
         $reportCard = ReportCard::find($request->reportCard_id);
 
         $dataUpdate = $request->all();
-        $dataUpdate['day'] = strtotime($request->day . ' ' . $reportCard->month . ' ' . $reportCard->year);
+        $dataUpdate['day'] = strtotime($request->day . ' ' . $reportCard->month_eng . ' ' . $reportCard->year);
 
         $create = DaysAttend::where('id', $id)->update($dataUpdate);
 
@@ -109,7 +109,7 @@ class DayAttendController extends Controller
         $reportCard = ReportCard::find($request->reportCard_id);
 
         $data = $request->all();
-        $data['day'] = strtotime($request->day . ' ' . $reportCard->month . ' ' . $reportCard->year);
+        $data['day'] = strtotime($request->day . ' ' . $reportCard->month_eng . ' ' . $reportCard->year);
 
         $dayAttend = DaysAttend::
             where('day', $data['day'])->
@@ -119,6 +119,9 @@ class DayAttendController extends Controller
 
         if ($dayAttend === null) {
             $dayAttend = DaysAttend::create($data);
+        } else {
+            $dayAttend->attendType_id = $request->attendType_id;
+            $dayAttend->save();
         }
 
         return response()->json([$dayAttend]);
@@ -138,15 +141,15 @@ class DayAttendController extends Controller
         $visits = [];
 
         foreach ($attends as $attend) {
-            $visits[$attend->visitor->name] = [];
-
             // limit days range
             for ($day = 1; $day <= $daysInMonth; $day++) {
 
                 // check for a day of attend is(equals) a day of iteration
                 if ($day == date('j', $attend->day)) {
                     $visits[$attend->visitor->name]['days'][$day] = $attend->type->name;
-                } else {
+                }
+
+                if (!isset($visits[$attend->visitor->name]['days'][$day])) {
                     $visits[$attend->visitor->name]['days'][$day] = '';
                 }
             }
