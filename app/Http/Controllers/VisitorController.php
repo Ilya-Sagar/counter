@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Validator;
 
 class VisitorController extends Controller
 {
+    public function createForm()
+    {
+        return view('main.report.manageData.addVisitor');
+    }
+
     public function create(Request $request)
     {
         $rules = [
@@ -24,9 +29,9 @@ class VisitorController extends Controller
             ];
         }
 
-        $create = Visitor::create($request->all());
+        Visitor::create($request->all());
 
-        return $create;
+        return redirect()->route('home');
     }
 
     public function update(Request $request, int $id)

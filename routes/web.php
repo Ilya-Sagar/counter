@@ -18,20 +18,26 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'reports'], function () {
-    Route::get('', [\App\Http\Controllers\ReportCardController::class, 'index']);
-    Route::post('', [\App\Http\Controllers\ReportCardController::class, 'create']);
+    Route::get('/', [\App\Http\Controllers\ReportCardController::class, 'index'])->name('home');
+    Route::get('/{id}', [\App\Http\Controllers\ReportCardController::class, 'showReport'])->where('id', '[0-9]+')->name('reports.show');
+    Route::get('/create', [\App\Http\Controllers\ReportCardController::class, 'createForm'])->name('reports.create-form');
+    Route::post('/', [\App\Http\Controllers\ReportCardController::class, 'create'])->name('reports.create');
     Route::put('/{id}', [\App\Http\Controllers\ReportCardController::class, 'update'])->where('id', '[0-9]+');
 });
 
 Route::group(['prefix' => 'visitors'], function () {
-    Route::get('', [\App\Http\Controllers\VisitorController::class, 'search']);
-    Route::post('', [\App\Http\Controllers\VisitorController::class, 'create']);
+    Route::get('/', [\App\Http\Controllers\VisitorController::class, 'search']);
+    Route::get('/create', [\App\Http\Controllers\VisitorController::class, 'createForm'])->name('visitors.create-form');
+    Route::post('/', [\App\Http\Controllers\VisitorController::class, 'create'])->name('visitors.create');
     Route::put('/{id}', [\App\Http\Controllers\VisitorController::class, 'update'])->where('id', '[0-9]+');
 });
 
 Route::group(['prefix' => 'attends'], function () {
-    Route::post('', [\App\Http\Controllers\DayAttendController::class, 'create']);
-    Route::put('/{id}', [\App\Http\Controllers\DayAttendController::class, 'update'])->where('id', '[0-9]+');
+    Route::post('/', [\App\Http\Controllers\DayAttendController::class, 'create']);
+    Route::put('/reports/{id}', [\App\Http\Controllers\DayAttendController::class, 'update'])->where('id', '[0-9]+');
+    Route::get('/{id}', [\App\Http\Controllers\DayAttendController::class, 'createOrUpdateForm'])->where('id', '[0-9]+')->name('attends.createOrUpdateForm');
+    Route::post('/', [\App\Http\Controllers\DayAttendController::class, 'createOrUpdate'])->name('attends.createOrUpdate');
+    Route::get('/{id}/detail', [\App\Http\Controllers\DayAttendController::class, 'showReport'])->where('id', '[0-9]+')->name('attends.detailReport');
 });
 
 
