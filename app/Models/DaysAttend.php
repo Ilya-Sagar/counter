@@ -11,8 +11,13 @@ class DaysAttend extends Model
 
     protected $guarded = [];
 
-    public function attendType()
+    public function type()
     {
-        return $this->belongsTo(AttendType::class);
+        return $this->belongsTo(AttendType::class, 'attendType_id', 'id');
+    }
+
+    public function visitor()
+    {
+        return $this->belongsTo(Visitor::class);
     }
 }
