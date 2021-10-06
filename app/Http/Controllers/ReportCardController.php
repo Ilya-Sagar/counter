@@ -80,7 +80,7 @@ class ReportCardController extends Controller
             )
         );
 
-        return $created;
+        return redirect()->route('home');
     }
 
     public function update(Request $request, int $id)

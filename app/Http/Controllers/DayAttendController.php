@@ -87,7 +87,7 @@ class DayAttendController extends Controller
         ]);
     }
 
-    public function createOrUpdate(Request $request)
+    public function createOrUpdate(Request $request)8000
     {
         $rules = [
             'day' => 'required|int',
@@ -124,7 +124,7 @@ class DayAttendController extends Controller
             $dayAttend->save();
         }
 
-        return response()->json([$dayAttend]);
+        return redirect()->route('home');
 
     }
 
