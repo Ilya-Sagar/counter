@@ -141,15 +141,15 @@ class DayAttendController extends Controller
         $visits = [];
 
         foreach ($attends as $attend) {
-            $visits[$attend->visitor->name] = [];
-
             // limit days range
             for ($day = 1; $day <= $daysInMonth; $day++) {
 
                 // check for a day of attend is(equals) a day of iteration
                 if ($day == date('j', $attend->day)) {
                     $visits[$attend->visitor->name]['days'][$day] = $attend->type->name;
-                } else {
+                }
+
+                if (!isset($visits[$attend->visitor->name]['days'][$day])) {
                     $visits[$attend->visitor->name]['days'][$day] = '';
                 }
             }
