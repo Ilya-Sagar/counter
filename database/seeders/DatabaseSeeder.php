@@ -17,7 +17,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             AttendTypesSeeder::class,
-            ReportCardSeeder::class,
             UserSeeder::class,
         ]);
     }
