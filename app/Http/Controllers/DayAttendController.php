@@ -87,7 +87,7 @@ class DayAttendController extends Controller
         ]);
     }
 
-    public function createOrUpdate(Request $request)8000
+    public function createOrUpdate(Request $request)
     {
         $rules = [
             'day' => 'required|int',
